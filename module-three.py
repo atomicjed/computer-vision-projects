@@ -5,12 +5,6 @@ import time
 import cv2
 from imutils.video import VideoStream
 
-# gaussian background subtraction for motion detection, some deep learning model for object detection, some library to label data.
-
-# step one: get gaussian method working really accurately
-# step two: get some labelling mechanism going on
-# step three: object detection
-
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-v", "--video", help="path to the video file")
@@ -25,8 +19,7 @@ if args.get("video", None) is None:
 else:
     vs = cv2.VideoCapture(args["video"])
 
-# initialize the first frame in the video stream
-firstFrame = None
+# Initialise the CSRT tracker
 tracker = cv2.legacy.TrackerCSRT_create()
 initBB = None
 
@@ -90,6 +83,8 @@ while True:
         if success:
             (x, y, w, h) = [int(v) for v in box]
             cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        else:
+            initBB = None
     
     # Draw the text and timestamp on the frame
     cv2.putText(frame, "Room Status: {}".format(text), (10, frame.shape[0] - 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)

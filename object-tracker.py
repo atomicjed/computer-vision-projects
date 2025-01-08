@@ -12,7 +12,6 @@ tracker = cv2.legacy.TrackerCSRT_create()
 
 initBB = None
 
-print("[INFO] starting video stream...")
 vs = VideoStream(src=0).start()
 time.sleep(1.0)
 
@@ -39,10 +38,10 @@ while True:
       (x, y, w, h) = [int(v) for v in box]
       cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
-      info = ("Success", "Yes" if success else "No")
+      info = ("Success", "Tracking..." if success else "Not tracking...")
       # info is a tuple
 
-      text = "{}: {}".format(info[0], info[1])
+      text = "{}".format(info[1])
       cv2.putText(frame, text, (10, H - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
 
   cv2.imshow("Frame", frame)
