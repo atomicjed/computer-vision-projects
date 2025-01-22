@@ -8,8 +8,8 @@ from utils import weaviate_utils
 client = weaviate_utils.connect_to_weaviate()
 
 model_init_obj = image_processing_utils.initialise_swin_transformer_model()
-processor = model_init_obj.processor
-model = model_init_obj.model
+processor = model_init_obj["processor"]
+model = model_init_obj["model"]
 
 images_data = [
     {
@@ -56,9 +56,5 @@ for image_data in images_data:
         vector=vector.tolist()
     ))
 
-result = weaviate_utils.insert_vectors_into_db(image_objs)
-
-if result['errors']:
-    print("Error during insertion:", result['errors'])
-
+weaviate_utils.insert_vectors_into_db(client, "Hand_Gesture_Images", image_objs)
 client.close()

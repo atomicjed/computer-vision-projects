@@ -8,8 +8,8 @@ def initialise_swin_transformer_model():
    model = SwinModel.from_pretrained(swin_transformer_model)
 
    return {
-      processor: processor,
-      model: model
+      "processor": processor,
+      "model": model
    }
   
   

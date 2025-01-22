@@ -8,8 +8,8 @@ from utils import weaviate_utils
 client = weaviate_utils.connect_to_weaviate()
 
 model_init_obj = image_processing_utils.initialise_swin_transformer_model()
-processor = model_init_obj.processor
-model = model_init_obj.model
+processor = model_init_obj['processor']
+model = model_init_obj['model']
 
 # if the video argument is None, then we are reading from webcam
 video_stream = VideoStream(src=0).start()
@@ -40,7 +40,7 @@ while True:
 	print(vectorised_frame)
 	
 	# Use this vector to perform a similarity search on our vector database
-	closest_image = weaviate_utils.return_similarity_search(client, "Images", vectorised_frame)
+	closest_image = weaviate_utils.return_similarity_search(client, "Hand_Gesture_Images", vectorised_frame)
 	
 	# If a vector to similar enough to be returned, assign it's name property to the hand_gesture variable 
 	if len(closest_image.objects) != 0:
